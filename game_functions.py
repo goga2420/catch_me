@@ -30,14 +30,9 @@ def check_events(ai_settings, screen, character):
 
 
 
-def prepare_mushroom(mushroom, mushroom_number, row_number):
-    mushroom_width = mushroom.rect.width
-    mushroom.rect.x = mushroom_width + 2 * mushroom_width * mushroom_number
-    mushroom.rect.y = mushroom.rect.height + 2 * mushroom.rect.height * row_number
-
-    random_factor = 40
-    mushroom.rect.x += randint(-random_factor, random_factor)
-    mushroom.rect.y += randint(-random_factor, random_factor)
+def prepare_mushroom(mushroom, screen_width, screen_height):
+    mushroom.rect.x = randint(0, screen_width - mushroom.rect.width)
+    mushroom.rect.y = randint(0, screen_height - mushroom.rect.height)
 
 
 def update_mushrooms(mushrooms, character):

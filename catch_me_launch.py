@@ -13,7 +13,10 @@ def run_game():
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption("Alien Invasion")
     character = Character(ai_settings, screen)
-    mushrooms = Group(Mushroom(ai_settings, screen))
+    mushroom = Mushroom(ai_settings, screen)
+
+    gf.prepare_mushroom(mushroom, ai_settings.screen_width, ai_settings.screen_height)
+    mushrooms = Group(mushroom)
 
     while True:
         gf.check_events(ai_settings, screen, character)
