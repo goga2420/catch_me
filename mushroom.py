@@ -1,14 +1,13 @@
-import pygame
 from pygame.sprite import Sprite
 
 
-class Objekt(Sprite):
+class Mushroom(Sprite):
     def __init__(self, ai_settings, screen):
-        super(Objekt, self).__init__()
+        super(Mushroom, self).__init__()
 
         self.ai_settings = ai_settings
         self.screen = screen
-        self.image = ai_settings.objekt_image
+        self.image = ai_settings.mushroom_image
 
         self.rect = self.image.get_rect()
         self.rect.x = self.rect.width
@@ -22,7 +21,7 @@ class Objekt(Sprite):
 
 
     def update(self):
-        self.rect.y += self.ai_settings.objekt_speed_factor * self.ai_settings.objekt_speed_factor
+        self.rect.y += self.ai_settings.mushroom_speed_factor * self.ai_settings.mushroom_speed_factor
 
 
     def check_bottom(self):
