@@ -1,5 +1,6 @@
-from random import randint
 import sys
+from random import randint
+
 import pygame
 
 
@@ -39,29 +40,21 @@ def prepare_objekt(objekt, objekt_number, row_number):
     objekt.rect.y += randint(-random_factor, random_factor)
 
 
-
-def get_number_objekt_x(screen_width, objekt_width):
-    available_space_x = screen_width - 2 * objekt_width
-    number_object_x = int(available_space_x / (2 * objekt_width))
-    return number_object_x
-
-
 def update_objekts(objekts, character):
-    objekts.update()
-    remove_out_of_screen_objekts(objekts)
-    collisions = pygame.sprite.groupcollide(character, objekts, True, True)
-    if len(objekts) == 0:
+    for o in objekts:
+        o.update()
+        remove_out_of_screen_objekts(o)
+
+    collisions = pygame.sprite.spritecollide(character, objekts, True)
 
 
+def remove_out_of_screen_objekts(objekt):
+    if objekt.check_bottom():
+        objekt.remove()
 
-
-def remove_out_of_screen_objekts(objekts):
-    for a in objekts:
-        if a.check_bottom():
-            objekts.remove(a)
-
-def update_screen(ai_settings, screen, charater, objekt):
+def update_screen(ai_settings, screen, charater, objekts):
     screen.fill(ai_settings.bg_color)
     charater.blitme()
-    objekt.blitme()
+    for o in objekts:
+        o.blitme()
     pygame.display.flip()
