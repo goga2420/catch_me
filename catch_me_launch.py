@@ -3,7 +3,6 @@ from pygame.sprite import Group
 
 import game_functions as gf
 from character import Character
-from mushroom import Mushroom
 from settings import Settings
 
 
@@ -14,9 +13,8 @@ def run_game():
     pygame.display.set_caption("Alien Invasion")
     character = Character(ai_settings, screen)
 
-    mushroom = Mushroom(ai_settings, screen)
-    gf.set_random_coords_mushroom(mushroom, ai_settings.screen_width, ai_settings.screen_height)
-    mushrooms = Group(mushroom)
+    mushrooms = Group()
+    gf.crete_new_mushroom(mushrooms, ai_settings, screen)
 
     while True:
         gf.check_events(ai_settings, screen, character)
