@@ -39,12 +39,18 @@ def set_random_coords_mushroom(mushroom, screen_width, screen_height):
 def update_mushrooms(mushrooms):
     for o in mushrooms:
         o.update()
-        remove_out_of_screen_mushrooms(o)
 
 
-def remove_out_of_screen_mushrooms(mushroom):
-    if mushroom.check_bottom():
-        mushroom.remove()
+def remove_out_of_screen_mushrooms(mushrooms):
+    deleted_count = 0
+    for m in mushrooms:
+        if m.check_bottom():
+            mushrooms.remove(m)
+            m.remove()
+            deleted_count += 1
+
+    return deleted_count
+
 
 def update_screen(ai_settings, screen, charater, mushrooms):
     screen.fill(ai_settings.bg_color)
@@ -59,7 +65,7 @@ def remove_mushrooms_collided(character, mushrooms):
     return len(collisions)
 
 
-def crete_new_mushrooms(mushrooms, ai_settings, screen):
+def crete_new_mushroom(mushrooms, ai_settings, screen):
     m = Mushroom(ai_settings, screen)
     set_random_coords_mushroom(m, ai_settings.screen_width, ai_settings.screen_height)
     mushrooms.add(m)
