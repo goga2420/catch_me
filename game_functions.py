@@ -3,6 +3,8 @@ from random import randint
 
 import pygame
 
+from mushroom import Mushroom
+
 
 def check_keydown_events(event, ai_settings, screen, character):
     if event.key == pygame.K_RIGHT:
@@ -29,18 +31,15 @@ def check_events(ai_settings, screen, character):
             check_keyup_events(event, character)
 
 
-
-def prepare_mushroom(mushroom, screen_width, screen_height):
+def set_random_coords_mushroom(mushroom, screen_width, screen_height):
     mushroom.rect.x = randint(0, screen_width - mushroom.rect.width)
-    mushroom.rect.y = randint(0, screen_height - mushroom.rect.height)
+    mushroom.rect.y = randint(0, screen_height - mushroom.rect.height - 100)
 
 
-def update_mushrooms(mushrooms, character):
+def update_mushrooms(mushrooms):
     for o in mushrooms:
         o.update()
         remove_out_of_screen_mushrooms(o)
-
-    collisions = pygame.sprite.spritecollide(character, mushrooms, True)
 
 
 def remove_out_of_screen_mushrooms(mushroom):
@@ -53,3 +52,14 @@ def update_screen(ai_settings, screen, charater, mushrooms):
     for o in mushrooms:
         o.blitme()
     pygame.display.flip()
+
+
+def remove_mushrooms_collided(character, mushrooms):
+    collisions = pygame.sprite.spritecollide(character, mushrooms, True)
+    return len(collisions)
+
+
+def crete_new_mushrooms(mushrooms, ai_settings, screen):
+    m = Mushroom(ai_settings, screen)
+    set_random_coords_mushroom(m, ai_settings.screen_width, ai_settings.screen_height)
+    mushrooms.add(m)
